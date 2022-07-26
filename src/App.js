@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   cardTrunfo: false,
   hasTrunfo: false,
   isSaveButtonDisabled: true,
+  cardList: [],
 };
 
 class App extends React.Component {
@@ -64,8 +65,40 @@ class App extends React.Component {
     this.setState({ isSaveButtonDisabled: !valid });
   };
 
-  onSaveButtonClick = () => {
-    this.setState(INITIAL_STATE);
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    const {
+      cardList,
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardTrunfo,
+    } = this.state;
+
+    this.setState({
+      cardList: [...cardList, {
+        name: cardName,
+        description: cardDescription,
+        image: cardImage,
+        rare: cardRare,
+        attr1: cardAttr1,
+        attr2: cardAttr2,
+        attr3: cardAttr3,
+        trunfo: cardTrunfo,
+      }],
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      hasTrunfo: cardTrunfo,
+    });
   }
 
   render() {
@@ -79,6 +112,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      hasTrunfo,
     } = this.state;
 
     return (
@@ -93,6 +127,7 @@ class App extends React.Component {
           cardAttr3={ cardAttr3 }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
