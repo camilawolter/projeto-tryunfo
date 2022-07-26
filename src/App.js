@@ -64,6 +64,10 @@ class App extends React.Component {
     this.setState({ isSaveButtonDisabled: !valid });
   };
 
+  onSaveButtonClick = () => {
+    this.setState(INITIAL_STATE);
+  }
+
   render() {
     const {
       cardName,
@@ -91,6 +95,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
 
         <Card
