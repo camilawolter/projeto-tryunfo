@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import './App.css';
 
 const INITIAL_STATE = {
   cardName: '',
@@ -101,6 +102,17 @@ class App extends React.Component {
     });
   }
 
+  buttonDeleteCard = ({ target: { name } }) => {
+    const { cardListSaved } = this.state;
+    const newCard = cardListSaved.filter((obj) => obj.name !== name);
+    const isTrunfo = cardListSaved.find((obj) => obj.name === name).cardTrunfo;
+
+    this.setState({
+      cardListSaved: newCard,
+      hasTrunfo: !isTrunfo,
+    });
+  };
+
   render() {
     const {
       cardName,
@@ -148,17 +160,29 @@ class App extends React.Component {
         <div className="saved-cards">
           <h2>Todas as cartas</h2>
           {cardListSaved.map((card, index) => (
-            <Card
-              key={ index }
-              cardName={ card.name }
-              cardDescription={ card.description }
-              cardAttr1={ card.attr1 }
-              cardAttr2={ card.attr2 }
-              cardAttr3={ card.attr3 }
-              cardImage={ card.image }
-              cardRare={ card.rare }
-              cardTrunfo={ card.trunfo }
-            />
+            <div key={ index }>
+              <Card
+                key={ index }
+                cardName={ card.name }
+                cardDescription={ card.description }
+                cardAttr1={ card.attr1 }
+                cardAttr2={ card.attr2 }
+                cardAttr3={ card.attr3 }
+                cardImage={ card.image }
+                cardRare={ card.rare }
+                cardTrunfo={ card.trunfo }
+              />
+
+              <button
+                type="button"
+                data-testid="delete-button"
+                name={ card.name }
+                onClick={ this.buttonDeleteCard }
+              >
+                Excluir
+              </button>
+            </div>
+
           ))}
         </div>
       </div>
